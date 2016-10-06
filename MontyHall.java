@@ -22,6 +22,24 @@ public class MontyHall {
 
     public static void main(String[] args) {
 
+        if (args.length == 0) {
+            interactiveGame();
+
+            //TODO put that in a new method
+        }
+        else {
+            //TODO Write the simulation part
+        }
+
+    }
+
+    /**
+    * Simulates a Monty Hal Game as played by the user 
+    */
+
+        public static void interactiveGame() {
+
+
             
 
         //model the doors as ints
