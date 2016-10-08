@@ -42,7 +42,7 @@ C:\javaProjects\MontyHall>java MontyHall 10000
 Going to run 10000 Simulations.
 You won: 67.28803367408298% of all the games who you swapepd.
 You won: 33.76571542606266% of all the games who you stayed.
-<pre>
+</pre>
 
 Usage
 -----
