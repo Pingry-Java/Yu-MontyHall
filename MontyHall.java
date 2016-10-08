@@ -2,11 +2,7 @@
 import java.util.Scanner;
 
 
- 
-public class MontyHall {
-    
-
-    /**
+ /**
  * This class represents a program that 
  * simulates the Monty Hall Problem.
  * @author Lindsey Yu
@@ -14,6 +10,11 @@ public class MontyHall {
  */
 
 
+
+public class MontyHall {
+    
+
+    
 
      /**
       * Main method calls the getUserDoor, revealDoor, getUserSwap, and newDoor methods
@@ -23,17 +24,108 @@ public class MontyHall {
     public static void main(String[] args) {
 
         if (args.length == 0) {
-            interactiveGame();
-
-            //TODO put that in a new method
-        }
+            interactiveGame(); }
         else {
-            //TODO Write the simulation part
+
+            //Figure out how many sims to run
+            int numSims = Integer.parseInt(args[0]);
+            System.out.println("Going to run " + numSims + " Simulations.");
+
+            simulateGame(numSims);
+
+        
         }
 
     }
 
+
     /**
+    * Runs the simulations of the games for x amount of times
+    *@param games the number of games the program will be runnning
+    */ 
+
+    public static void simulateGame(int games){
+
+
+        int swapGames = 0;
+        int swapWins = 0;
+        int stayGames = 0;
+        int stayWins = 0;
+
+        int userDoor;
+        boolean swapOrStay;
+        boolean result;
+
+
+        while (games > 0) {
+
+            //Run a single simulation in here
+           userDoor = (int) (Math.random() * 3 + 1);
+           swapOrStay = Math.random() > 0.5; //Generate a random booloean
+           result = simulateSingleGame(userDoor, swapOrStay);
+
+
+            if (swapOrStay) {
+               swapGames ++;
+               if (result) {
+                   swapWins++; 
+               }
+            }
+
+            else {
+                stayGames++;
+                if (result) {
+                    stayWins++;
+                }
+            }
+
+            games--;
+        }
+
+        double swapSuccessRate = (double) swapWins/ swapGames;
+
+        double staySuccessRate = (double) stayWins / stayGames; 
+
+        System.out.println("You won: " + swapSuccessRate * 100 + ( "% of all the games where you swapped."));
+        System.out.println("You won: " + staySuccessRate  * 100 + ("% of all the games where you stayed."));
+        
+
+
+
+    }
+
+
+
+
+/**  Simulates a single game of Monty Hall$
+*Simulates a single game of Monty Hall
+*@param userDoor the door the user wants to played
+*@param swapOrStay Whther the uswer wants to swap dooor or keep the same door
+@return Whether the user wins
+*/ 
+
+public static boolean simulateSingleGame(int userDoor, boolean swapOrStay) {
+
+    //cjoose a randomm car door
+    int carDoor = (int) (Math.random() * 3 +1);
+
+
+    //Open a goat door
+    int revealedDoor = revealDoor(carDoor, userDoor);
+
+    //Swap is necessary
+    if (swapOrStay) {
+        userDoor = newDoor(userDoor, revealedDoor);
+    }
+
+    //Return whether they won
+
+    return userDoor == carDoor; 
+    
+}
+
+
+   /**
     * Simulates a Monty Hal Game as played by the user 
     */
 
